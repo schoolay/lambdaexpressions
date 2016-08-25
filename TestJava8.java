@@ -1,7 +1,6 @@
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
+import java.lang.reflect.Array;
+import java.util.*;
+import java.util.stream.Stream;
 
 /**
  * Created by IntelliJ IDEA.
@@ -21,23 +20,50 @@ public class TestJava8 {
         Person person1 = new Person();
         person1.setIncome(120000000);
         person1.setName("Alex");
+        person1.setGender("male");
 
         Person person2 = new Person();
         person2.setIncome(1000);
         person2.setName("Bob");
+        person2.setGender("male");
 
         staff.add(person1);
         staff.add(person2);
 
-        System.out.println("Printing the List before removeAll function");
+        //use of lambda expressions, un comment and run the ocde to see output.
+        /* System.out.println("Printing the List before removeAll function");
         printList(staff);
 
         Collections.removeAll(staff, p - > p.getIncome() < 20000);
 
         System.out.println("Printing the List after removeAll function");
-        printList(staff);
+        printList(staff); */
+
+        /*Optional<Person> highestIncome = staff.stream()
+                .filter(p - > p.getName().equals("Bob")).findAny();*/
 
 
+        /* Stream Interface functions */
+
+        //.distinct()
+        /*Object[] distinct = staff.stream()
+                .filter(p->p.getName().equals("Bob")).distinct().toArray();*/
+
+    }
+
+    private static String getMaleStaffWithHighestSalary(List<Person> staff) {
+        Person requiredPerson = null;
+        int highestSalary = 0;
+        for (Person person : staff) {
+            if (person.getGender() == "male") {
+                int salary = person.getIncome();
+                if (highestSalary < salary) {
+                    highestSalary = salary;
+                    requiredPerson = person;
+                }
+            }
+        }
+        return requiredPerson.getName();
     }
 
     private static void printList(List<Person> list) {
